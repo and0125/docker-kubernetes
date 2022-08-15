@@ -1,4 +1,6 @@
 sudo: required
+language: generic
+
 services:
   - docker
 
@@ -6,4 +8,4 @@ before_install:
   - docker build -f Dockerfile.dev -t test-image .
 
 script:
-  - docker run test-image npm run test -- --coverage
+  - docker run -e CI=true test-image npm run test -- --coverage
