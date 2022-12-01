@@ -40,3 +40,21 @@ FLask-RESTPlus has the following features:
 - In the same way, it has a serialization framework. The serialization also defines objects that can be reused, and can mask certain fields in returning data, to allow for sending partial objects.
 - It has full swagger documentation support.
 - There's a pytest-flask module to create tests and add some fixtures ready to work iwth a flask application.
+
+## Building A Web service Container
+
+To create a container capable of running a microservice, we need to copy the code to the container, and the code needs to be served through a web server.
+
+**NOTE**: most of the configuration files will be placed inside subdirectories in the `./docker` directory in the container.
+
+The example container will run a web server using uWSGI (web socket gateway interface protocol) for the FLask app. Although, a very common configuration is to have NGINX used in front of uWSGI to serve static files, as it is best for that. However, when you are not loading static files, and making a restful API, its not needed to have an NGINX configuration for simplicity. NGINX can communicate with a uWSGI server through the uwsgi protocol, but can also communicate with the API using HTTP.
+
+Chapter breaks down what the steps in the dockerfile are meant to do; straightforward to follow along with the reference documentation.
+
+## Travis CI Notes
+
+Travis CI works closely with Github, and its a popular continuous integration service that's free for public GitHub projects.
+
+Travis works a bit differently from other tools by starting a new virtual machine when it create independent jobs.
+
+This means that any artifact created for a previous stage needs to be copied somewhere else to be downloaded at the start of the next stage.
